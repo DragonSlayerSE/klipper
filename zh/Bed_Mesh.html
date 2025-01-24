@@ -688,14 +688,14 @@
         
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    矩形床
+    矩形热床
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    圆形床
+    圆形热床
   </a>
   
 </li>
@@ -1619,14 +1619,14 @@
         
           <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    矩形床
+    矩形热床
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    圆形床
+    圆形热床
   </a>
   
 </li>
@@ -1874,7 +1874,7 @@
 <p>床网模块可以用于补偿床面的不规则性，以实现更好的首层均一性。需要注意的是，基于软件的校正无法达到完美的结果，它只能近似地模拟床面的形状。床网模块也无法对机械和电气问题进行补偿。如果一个轴倾斜或探针不准确，那么床网模块将无法从探测过程中获得准确的结果。</p>
 <p>在进行网格校准之前，需要先校准探针的 Z 偏移。如果使用限位开关进行Z轴定位，也需要对其进行校准。请参阅<a href="Probe_Calibrate.html">探针校准</a>和<a href="Manual_Level.html">手动调平</a>中的 Z_ENDSTOP_CALIBRATE 获取更多信息。</p>
 <h2 id="_2">基本配置<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<h3 id="_3">矩形床<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h3 id="_3">矩形热床<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>此示例假定打印机具有 250 mm x 220 mm 矩形床和一个 x 偏移为 24 mm和 y 偏移为 5 mm的探针。</p>
 <div class="highlight"><pre><span></span><code>[bed_mesh]
 speed: 120
@@ -1893,7 +1893,7 @@ probe_count: 5, 3
 </ul>
 <p>下图演示了如何使用 <code>mesh_min</code>、<code>mesh_max</code> 和 <code>probe_count</code> 选项来生成探测点。 箭头表示探测过程的运动方向，从“mesh_min”开始。 图中所示，当探针位于“mesh_min”时，喷嘴将位于 (11, 1)，当探针位于“mesh_max”时，喷嘴将位于 (206, 193)。</p>
 <p><img alt="矩形网床基本配置" src="img/bedmesh_rect_basic.svg" /></p>
-<h3 id="_4">圆形床<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h3 id="_4">圆形热床<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>本示例假设打印机配备的圆床半径为 100 mm。 我们将使用与矩形网床示例相同的探针偏移来演示，X 偏移为 24 mm，Y 偏移为 5 mm。</p>
 <div class="highlight"><pre><span></span><code>[bed_mesh]
 speed: 120
@@ -1968,7 +1968,7 @@ fade_target: 0
 <li><code>fade_target: 0</code> <em>默认值：网格的平均 Z 值</em> <code>fade_target</code> 可以被视为在淡化完成后应用于整个床面的额外 Z 偏移量。一般来说，我们希望这个值为 0，但有些情况下不应该是这样的。例如，假设您在床上的归位位置是一个异常值，比床面的平均探测高度低 0.2 毫米。如果 <code>fade_target</code> 为 0，淡化将会使整个床面平均降低 0.2 毫米。通过将 <code>fade_target</code> 设置为 0.2，淡化区域将会提高到 0.2 毫米，但是，床面的其余部分将保持原大小。通常最好将 <code>fade_target</code> 留在配置中，以便使用网格的平均高度，但是如果您想在床面的特定部分上打印，则可能需要手动调整淡化目标。</li>
 </ul>
 <h3 id="_9">配置零点参考位置<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>许多探头容易出现“漂移”，即：由于热或干扰而引起的探头不准确。这使得计算探测器的z偏移量具有挑战性，特别是在不同床温的情况下。因此，一些打印机使用端止器来定位Z轴，并使用探头来校准网格。在这种配置中，可以对网格进行偏移，从而使(X，Y)<code>参考位置‘应用零点调整。‘参考位置’应该是床上进行[Z_ENDSTOP_CALIBRATE](./Manual_Level#calibrating-a-z-endstop)试纸测试的位置。Bed_Mesh模块提供了</code>ZERO_REFERENCE_Position`选项来指定该坐标：</p>
+<p>Many probes are susceptible to "drift", ie: inaccuracies in probing introduced by heat or interference. This can make calculating the probe's z-offset challenging, particularly at different bed temperatures. As such, some printers use an endstop for homing the Z axis and a probe for calibrating the mesh. In this configuration it is possible offset the mesh so that the (X, Y) <code>reference position</code> applies zero adjustment. The <code>reference postion</code> should be the location on the bed where a <a href="Manual_Level.html#calibrating-a-z-endstop">Z_ENDSTOP_CALIBRATE</a> paper test is performed. The bed_mesh module provides the <code>zero_reference_position</code> option for specifying this coordinate:</p>
 <div class="highlight"><pre><span></span><code>[bed_mesh]
 speed: 120
 horizontal_move_z: 5
